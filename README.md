@@ -103,83 +103,36 @@ GuadaClaw 是一个功能完备的 AI 对话和工作辅助平台，致力于打
 
 ### 后端技术
 
-<table width="100%">
-<tr>
-<th width="25%">技术</th>
-<th width="15%">版本</th>
-<th width="60%">用途</th>
-</tr>
-<tr>
-<td>NestJS</td>
-<td>11.x</td>
-<td>企业级 Node.js 框架</td>
-</tr>
-<tr>
-<td>TypeScript</td>
-<td>6.x</td>
-<td>类型安全开发</td>
-</tr>
-<tr>
-<td>Prisma</td>
-<td>7.x</td>
-<td>现代 ORM</td>
-</tr>
-<tr>
-<td>SQLite</td>
-<td>3.x</td>
-<td>轻量级数据库</td>
-</tr>
-<tr>
-<td>sqlite-vec</td>
-<td>-</td>
-<td>向量数据库扩展</td>
-</tr>
-</table>
+| 技术 | 版本 | 用途 | 说明 |
+|------|------|------|------|
+| NestJS | 11.x | 企业级 Node.js 框架 | 模块化架构，支持 TypeScript，提供强大的依赖注入系统 |
+| TypeScript | 6.x | 类型安全开发 | 为 JavaScript 添加类型系统，提高代码可维护性和开发效率 |
+| Prisma | 7.x | 现代 ORM | 类型安全的数据库访问，支持多种数据库，提供自动迁移功能 |
+| SQLite | 3.x | 轻量级数据库 | 嵌入式数据库，无需独立服务，适合单机应用和开发环境 |
+| sqlite-vec | - | 向量数据库扩展 | SQLite 的向量搜索扩展，支持 RAG 知识库检索 |
+| Axios | 1.x | HTTP 客户端 | 用于 API 调用和外部服务请求 |
+| Socket.io | 4.x | 实时通信 | 支持 WebSocket 双向通信，用于实时消息推送 |
+| JWT | 9.x | 身份认证 | JSON Web Token 实现无状态认证 |
 
 ### 前端技术
 
-<table width="100%">
-<tr>
-<th width="25%">技术</th>
-<th width="15%">版本</th>
-<th width="60%">用途</th>
-</tr>
-<tr>
-<td>Vue 3</td>
-<td>3.4+</td>
-<td>渐进式 JavaScript 框架</td>
-</tr>
-<tr>
-<td>Vite</td>
-<td>6.x</td>
-<td>下一代前端构建工具</td>
-</tr>
-<tr>
-<td>Element Plus</td>
-<td>2.x</td>
-<td>Vue 3 组件库</td>
-</tr>
-<tr>
-<td>Pinia</td>
-<td>2.x</td>
-<td>Vue 状态管理</td>
-</tr>
-</table>
+| 技术 | 版本 | 用途 | 说明 |
+|------|------|------|------|
+| Vue 3 | 3.4+ | 渐进式 JavaScript 框架 | 响应式数据绑定，组件化开发，Composition API |
+| Vite | 6.x | 下一代前端构建工具 | 极速冷启动，ESModule 原生支持，热模块替换 |
+| Element Plus | 2.x | Vue 3 组件库 | 丰富的 UI 组件，企业级设计规范，支持按需引入 |
+| Pinia | 2.x | Vue 状态管理 | 轻量级状态管理，支持 TypeScript，模块化设计 |
+| Vue Router | 4.x | 路由管理 | Vue 官方路由库，支持动态路由和导航守卫 |
+| Tailwind CSS | 3.x | 原子化 CSS | 实用优先的 CSS 框架，快速构建美观界面 |
+| Lucide Vue | - | 图标库 | 优雅的 SVG 图标组件，支持自定义样式 |
 
 ### 桌面技术
 
-<table width="100%">
-<tr>
-<th width="25%">技术</th>
-<th width="15%">版本</th>
-<th width="60%">用途</th>
-</tr>
-<tr>
-<td>Electron</td>
-<td>31.x</td>
-<td>跨平台桌面应用框架</td>
-</tr>
-</table>
+| 技术 | 版本 | 用途 | 说明 |
+|------|------|------|------|
+| Electron | 31.x | 跨平台桌面应用框架 | 使用 Web 技术构建桌面应用，支持 Windows、macOS、Linux |
+| Electron Builder | 24.x | 打包工具 | 将 Electron 应用打包成安装包，支持多平台分发 |
+| Nativefier | - | Web 应用打包 | 将网页快速转换为桌面应用 |
 
 ---
 
