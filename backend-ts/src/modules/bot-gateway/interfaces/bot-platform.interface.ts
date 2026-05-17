@@ -1,0 +1,226 @@
+import { Observable } from 'rxjs';
+
+/**
+ * 机器人消息结构(标准化)
+ */
+export interface BotMessage {
+  /** 平台唯一消息ID */
+  messageId: string;
+  /** 发送者ID(用户OpenID/UIN等) */
+  senderId: string;
+  /** 发送者昵称 */
+  senderName?: string;
+  /** 会话ID(群聊为群ID,私聊为用户ID) */
+  conversationId: string;
+  /** 消息内容文本 */
+  content: string;
+  /** 消息类型 */
+  messageType: 'text' | 'image' | 'voice' | 'file' | 'mixed';
+  /** 消息来源类型 */
+  sourceType?: 'private' | 'group' | 'channel';
+  /** 附件信息(图片/文件等) */
+  attachments?: BotAttachment[];
+  /** 原始平台事件对象(用于扩展) */
+  rawEvent?: any;
+  /** 时间戳 */
+  timestamp: Date;
+}
+
+/**
+ * 附件信息
+ */
+export interface BotAttachment {
+  type: 'image' | 'file' | 'voice';
+  url?: string;
+  fileId?: string;
+  fileName?: string;
+  fileSize?: number;
+  /** 本地临时文件路径（适配器预处理后使用） */
+  localPath?: string;
+  /** 企业微信图片加密密钥（可选，已废弃，由适配器层处理） */
+  aesKey?: string;
+}
+
+/**
+ * 机器人响应消息
+ */
+export interface BotResponse {
+  /** 目标会话ID */
+  conversationId: string;
+  /** 回复内容 */
+  content: string;
+  /** 附件(可选) */
+  attachments?: BotAttachment[];
+  /** 引用消息ID(可选,用于回复特定消息) */
+  replyToMessageId?: string;
+  /** 消息来源类型(从BotMessage传递过来) */
+  sourceType?: 'private' | 'group' | 'channel';
+  /** 原始消息帧(用于企业微信等需要上下文的平台) */
+  rawFrame?: any;
+}
+
+/**
+ * 机器人平台状态
+ */
+export enum BotStatus {
+  STOPPED = 'stopped',
+  CONNECTING = 'connecting',
+  CONNECTED = 'connected',
+  ERROR = 'error',
+  DISCONNECTED = 'disconnected',
+}
+
+/**
+ * 机器人配置
+ */
+export interface BotConfig {
+  /** 机器人ID */
+  id: string;
+  /** 平台类型 */
+  platform: 'qq' | 'wechat' | 'discord' | 'lark' | 'wecom' | 'mock'; // TODO: 待添加 'wechat-personal'
+  /** 机器人名称 */
+  name: string;
+  /** 平台特定配置(包含认证信息和其他平台相关配置) */
+  platformConfig: Record<string, any>;
+  /** 是否启用 */
+  enabled: boolean;
+  /** 自动重连配置 */
+  reconnectConfig?: {
+    enabled: boolean;
+    maxRetries: number;
+    retryInterval: number;
+  };
+  /** 
+   * 关联的默认角色ID
+   * 
+   * 注意：此字段在每次创建会话时动态读取，修改后无需重启机器人
+   */
+  defaultCharacterId: string;
+  /** 
+   * 关联的默认模型ID
+   * 
+   * 注意：此字段在每次创建会话时动态读取，修改后无需重启机器人
+   * 优先级：Bot实例配置 > 角色配置 > 全局默认设置
+   */
+  defaultModelId?: string;
+  /** 
+   * 扩展配置（如知识库ID列表等）
+   * 
+   * 注意：此字段在每次处理消息时动态读取，修改后无需重启机器人
+   */
+  additionalKwargs?: Record<string, any>;
+  /** 关联的知识库ID列表(从 additionalKwargs 中读取) */
+  knowledgeBaseIds?: string[];
+}
+
+/**
+ * 流式回复选项
+ */
+export interface StreamReplyOptions {
+  /** 是否为最终回复 */
+  finish?: boolean;
+  /** 流ID(用于关联同一流式回复的多个片段) */
+  streamId?: string;
+}
+
+/**
+ * 平台能力声明
+ */
+export interface PlatformCapabilities {
+  /** 是否支持流式回复 */
+  supportsStreaming: boolean;
+  /** 是否支持主动推送(无需消息上下文) */
+  supportsPushMessage: boolean;
+  /** 是否支持模板卡片 */
+  supportsTemplateCard: boolean;
+  /** 是否支持多媒体消息 */
+  supportsMultimedia: boolean;
+}
+
+/**
+ * 断开连接事件信息
+ */
+export interface BotDisconnectEvent {
+  /** 断开原因码 */
+  code: number;
+  /** 断开原因描述 */
+  reason?: string;
+  /** 时间戳 */
+  timestamp: Date;
+}
+
+/**
+ * 统一机器人平台接口
+ *
+ * 所有平台适配器必须实现此接口,屏蔽底层差异
+ */
+export interface IBotPlatform {
+  /**
+   * 获取平台标识
+   */
+  getPlatform(): string;
+
+  /**
+   * 获取平台能力声明
+   */
+  getCapabilities(): PlatformCapabilities;
+
+  /**
+   * 初始化机器人(建立连接、注册事件监听器等)
+   * @param config 机器人配置
+   */
+  initialize(config: BotConfig): Promise<void>;
+
+  /**
+   * 发送消息到指定会话
+   * @param response 响应消息
+   */
+  sendMessage(response: BotResponse): Promise<void>;
+
+  /**
+   * 发送流式回复(如果平台支持)
+   * @param response 响应消息
+   * @param options 流式回复选项
+   * @returns 是否成功发送
+   */
+  sendStreamReply?(response: BotResponse, options?: StreamReplyOptions): Promise<boolean>;
+
+  /**
+   * 监听 incoming 消息流
+   * @returns 消息 observable 流
+   */
+  onMessage(): Observable<BotMessage>;
+
+  /**
+   * 监听断开连接事件(可选)
+   * @returns 断开连接事件 observable 流
+   */
+  onDisconnect?(): Observable<BotDisconnectEvent>;
+
+  /**
+   * 获取当前连接状态
+   */
+  getStatus(): BotStatus;
+
+  /**
+   * 优雅关闭(断开连接、清理资源)
+   */
+  shutdown(): Promise<void>;
+
+  /**
+   * 重新连接
+   */
+  reconnect?(): Promise<void>;
+}
+
+/**
+ * 适配器工厂接口
+ */
+export interface IBotAdapterFactory {
+  /**
+   * 创建适配器实例
+   * @param platform 平台类型
+   * @param config 机器人配置
+   */
+  createAdapter(platform: string, config: BotConfig): IBotPlatform;
+}
