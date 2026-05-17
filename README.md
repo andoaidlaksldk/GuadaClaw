@@ -103,28 +103,83 @@ GuadaClaw 是一个功能完备的 AI 对话和工作辅助平台，致力于打
 
 ### 后端技术
 
-| 技术 | 版本 | 用途 |
-|------|------|------|
-| NestJS | 11.x | 企业级 Node.js 框架 |
-| TypeScript | 6.x | 类型安全开发 |
-| Prisma | 7.x | 现代 ORM |
-| SQLite | 3.x | 轻量级数据库 |
-| sqlite-vec | - | 向量数据库扩展 |
+<table width="100%">
+<tr>
+<th width="25%">技术</th>
+<th width="15%">版本</th>
+<th width="60%">用途</th>
+</tr>
+<tr>
+<td>NestJS</td>
+<td>11.x</td>
+<td>企业级 Node.js 框架</td>
+</tr>
+<tr>
+<td>TypeScript</td>
+<td>6.x</td>
+<td>类型安全开发</td>
+</tr>
+<tr>
+<td>Prisma</td>
+<td>7.x</td>
+<td>现代 ORM</td>
+</tr>
+<tr>
+<td>SQLite</td>
+<td>3.x</td>
+<td>轻量级数据库</td>
+</tr>
+<tr>
+<td>sqlite-vec</td>
+<td>-</td>
+<td>向量数据库扩展</td>
+</tr>
+</table>
 
 ### 前端技术
 
-| 技术 | 版本 | 用途 |
-|------|------|------|
-| Vue 3 | 3.4+ | 渐进式 JavaScript 框架 |
-| Vite | 6.x | 下一代前端构建工具 |
-| Element Plus | 2.x | Vue 3 组件库 |
-| Pinia | 2.x | Vue 状态管理 |
+<table width="100%">
+<tr>
+<th width="25%">技术</th>
+<th width="15%">版本</th>
+<th width="60%">用途</th>
+</tr>
+<tr>
+<td>Vue 3</td>
+<td>3.4+</td>
+<td>渐进式 JavaScript 框架</td>
+</tr>
+<tr>
+<td>Vite</td>
+<td>6.x</td>
+<td>下一代前端构建工具</td>
+</tr>
+<tr>
+<td>Element Plus</td>
+<td>2.x</td>
+<td>Vue 3 组件库</td>
+</tr>
+<tr>
+<td>Pinia</td>
+<td>2.x</td>
+<td>Vue 状态管理</td>
+</tr>
+</table>
 
 ### 桌面技术
 
-| 技术 | 版本 | 用途 |
-|------|------|------|
-| Electron | 31.x | 跨平台桌面应用框架 |
+<table width="100%">
+<tr>
+<th width="25%">技术</th>
+<th width="15%">版本</th>
+<th width="60%">用途</th>
+</tr>
+<tr>
+<td>Electron</td>
+<td>31.x</td>
+<td>跨平台桌面应用框架</td>
+</tr>
+</table>
 
 ---
 
