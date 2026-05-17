@@ -23,7 +23,7 @@
     "postinstall": "prisma generate"
   },
   "keywords": [],
-  "author": "",
+  "author": "GuadaClaw Team",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
