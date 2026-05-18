@@ -459,7 +459,6 @@ grep "ERROR" ~/Library/Application\ Support/GuadaClaw/logs/error-*.log | tail -5
 
 ### 获取帮助
 
-- **QQ 群**: 1047993501
 - **GitHub Issues**: 提交问题报告
 - **文档**: 查看 [故障排查指南](TROUBLESHOOTING.md)
 
